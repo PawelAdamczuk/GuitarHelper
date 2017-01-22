@@ -15,8 +15,9 @@ namespace GuitarHelper.Class
 
         public KeyboardInterface(Note currentSelection)
         {
+            int KeyBordLenght = 77;
             this.currentSelection = currentSelection;
-            for ( int i = 1; i < 77; ++i)
+            for ( int i = 1; i <= KeyBordLenght; ++i) 
             {
                 Note newNote;
                 if (currentSelection.chromaticPitch + i%12 == 12)
