@@ -8,6 +8,21 @@ namespace GuitarHelper.Class
 {
     class Fretboard
     {
-        List<Note> strings;
+        public List<Note> strings;
+
+        public Fretboard()
+        {
+            strings = new List<Note>();
+        }
+
+        public Fretboard(List<Note> strings)
+        {
+            this.strings = strings;
+        }
+        public void addNode(Note note)
+        {
+            this.strings.Add(note);
+        }
+        
     }
 }
