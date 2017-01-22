@@ -10,11 +10,51 @@ namespace GuitarHelper.Class
     {
         public Note currentSelection;
         public MainInterface mainInterface;
-        public Note[] notes;
+        public List<Note> notes;
 
+
+        public KeyboardInterface(Note currentSelection)
+        {
+            this.currentSelection = currentSelection;
+            for ( int i = 1; i < 77; ++i)
+            {
+                Note newNote;
+                if (currentSelection.chromaticPitch + i%12 == 12)
+                {
+                    newNote = new Note(0, currentSelection.absolutePitch + i % 12);
+                }
+                else
+                {
+                    newNote = new Note(currentSelection.chromaticPitch + i % 12, currentSelection.absolutePitch);
+                }
+                notes.Add(newNote);
+            }
+        }
+
+        public void setMainInterface(MainInterface mainInterface)
+        {
+            this.mainInterface = mainInterface;
+        }
         public void changeSelection( int selection)
         {
+            Note newNote;
+            if (currentSelection.chromaticPitch + selection == 12)
+            {
+                newNote = new Note(0, currentSelection.absolutePitch + 1);
+            }
+            else
+            {
+                newNote = new Note(currentSelection.chromaticPitch + 1, currentSelection.absolutePitch);
+            }
+            currentSelection = newNote;
+        }
 
+
+        //Metody z Interface
+
+        public void changeSelection(Note currentSelection)
+        {
+            this.currentSelection = currentSelection;
         }
         public void displayChord(Chord chord)
         {

@@ -13,12 +13,8 @@ namespace GuitarHelper.Class
         {
             notesBank = new List<string>();
 
-            notesBank.Add("C");
+            notesBank.Add("C");//0
             notesBank.Add("Cis");
-            notesBank.Add("D");
-            notesBank.Add("Dis");
-            notesBank.Add("G");
-            notesBank.Add("Gis");
             notesBank.Add("D");
             notesBank.Add("Dis");
             notesBank.Add("E");
@@ -26,7 +22,9 @@ namespace GuitarHelper.Class
             notesBank.Add("Fis");
             notesBank.Add("G");
             notesBank.Add("Gis");
-            notesBank.Add("H");
+            notesBank.Add("A");
+            notesBank.Add("Ais");
+            notesBank.Add("H");//11
         }
         public int getValue(string note)
         {
