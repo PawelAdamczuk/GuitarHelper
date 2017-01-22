@@ -14,7 +14,11 @@ namespace GuitarHelper.Class
 
         void updateInterfaces()
         {
-
+            foreach (InstrumentInterface inter in interfaces)
+            {
+                inter.updateSelection();
+                inter.reDraw();
+            }
         }
         void changeRootNote(Note note)
         {

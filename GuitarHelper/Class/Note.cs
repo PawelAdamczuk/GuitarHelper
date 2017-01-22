@@ -8,13 +8,15 @@ namespace GuitarHelper.Class
 {
     class Note
     {
-        public  int chromaticPitch;
+        public int chromaticPitch;
         //Typ enum by łatwiej można rozpoznawać i przyspisywać dzwięki
-        public NoteValue humanReadable;
-        public  int absolutePitch;
-        public Note(NoteValue value)
+        public string humanReadable;
+        public int absolutePitch;
+        public Note (int chromatic, int absolute)
         {
-            this.humanReadable = value;
+            this.chromaticPitch = chromatic;
+            this.absolutePitch = absolute;
+            this.humanReadable = new NoteBank().getNote(chromatic);
         }
         void play()
         {

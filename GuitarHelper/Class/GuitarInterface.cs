@@ -23,6 +23,7 @@ namespace GuitarHelper.Class
             grid = new List<List<Note>>();
             setFretboard(this.chosenBase);
         }
+
         void setFretboard(Fretboard board)
         {
             //Czyścimy stary fretBoard
@@ -48,10 +49,20 @@ namespace GuitarHelper.Class
                 //Przypisujemy gryfowi dziwięki
                 for ( int i = 1; i < boardLenght; ++i)
                 {
-                    
+                    if ( grid[j][0].chromaticPitch + i == 12)
+                    {   //Przechodzimy do nowej skali
+                        grid[j][i] = new Note(0, grid[j][0].absolutePitch + 1);
+
+                    } else{
+                        //Zostajemy w skali
+                        grid[j][i] = new Note(grid[j][0].chromaticPitch + 1, grid[j][0].absolutePitch);
+                    }
+                         
                 }
+
             }
-        }
+        }//koniec setFretBoard
+
         //Metody z klasy
         private void buildGrid()
         {
@@ -61,16 +72,18 @@ namespace GuitarHelper.Class
        
         public void changeMouseover(Tuple<int,int> pair)
         {
-
+            this.currentMouseover = pair;
         }
         //Metody z interface
         void InstrumentInterface.displayChord(Chord chord)
         {
+            
             throw new NotImplementedException();
         }
 
         Note InstrumentInterface.getCurrentSelection()
         {
+            return 
             throw new NotImplementedException();
         }
 
