@@ -46,6 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Chord.cs" />
+    <Compile Include="Class\ChordRecipe.cs" />
+    <Compile Include="Class\Database.cs" />
+    <Compile Include="Class\Fretboard.cs" />
+    <Compile Include="Class\GraphicGenerator.cs" />
+    <Compile Include="Class\GuitarInterface.cs" />
+    <Compile Include="Class\InstrumentInterface.cs" />
+    <Compile Include="Class\KeyboardInterface.cs" />
+    <Compile Include="Class\MainInterface.cs" />
+    <Compile Include="Class\Note.cs" />
+    <Compile Include="Class\ResterInstance.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +90,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+
   <ItemGroup>
     <Content Include="res\background.png" />
     <Content Include="res\background_bottom.png" />
