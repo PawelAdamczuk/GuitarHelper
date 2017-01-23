@@ -83,7 +83,7 @@ namespace GuitarHelper.Class
 
         Note InstrumentInterface.getCurrentSelection()
         {
-            return 
+           
             throw new NotImplementedException();
         }
 
