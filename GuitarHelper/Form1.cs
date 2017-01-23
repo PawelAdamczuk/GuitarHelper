@@ -65,7 +65,6 @@ namespace GuitarHelper
                 e.Graphics.DrawImage(nut, startingPosX, startingPosY + i * 30, 60, 30);
             }
 
-            
             for (int i = 0; i < fretCount + 2; i++)
             {
                 e.Graphics.DrawImage(background_top, startingPosX + i * 60, startingPosY - 16, 60, 30);
@@ -86,11 +85,19 @@ namespace GuitarHelper
                 e.Graphics.DrawImage(background_right_coverup, startingPosX + (fretCount + 1) * 60, startingPosY - 30 + i * 30, 60, 30);
             }
 
+            for (int i = 0; i < stringCount; i++)
+            {
+                Bitmap note = new Bitmap("..\\..\\res\\notes\\note_" + i + ".png");
+                e.Graphics.DrawImage(note, startingPosX, startingPosY + i * 30, 60, 30);
+            }
+
             int startingPosXKeyboard = 70;
             int startingPosYKeyboard = 400;
 
             Bitmap whiteKey = new Bitmap("..\\..\\res\\white_key.png");
             Bitmap blackKey = new Bitmap("..\\..\\res\\black_key.png");
+            Bitmap whiteKeyHighlight = new Bitmap("..\\..\\res\\white_key_highlight.png");
+            Bitmap blackKeyHighlight = new Bitmap("..\\..\\res\\black_key_highlight.png");
 
             //6 octaves
             int keyNumber = 0;
@@ -112,7 +119,7 @@ namespace GuitarHelper
                 e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //G
                 verticalIterator += 20;
                 keyNumber += 2;
-                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //A
+                e.Graphics.DrawImage(whiteKeyHighlight, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //A
                 verticalIterator += 20;
                 keyNumber += 2;
                 e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //B
@@ -127,7 +134,7 @@ namespace GuitarHelper
                 e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //C#
                 verticalIterator += 20;
                 keyNumber += 2;
-                e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //D#
+                e.Graphics.DrawImage(blackKeyHighlight, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //D#
                 verticalIterator += 40;
                 keyNumber += 3;
                 e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //F#

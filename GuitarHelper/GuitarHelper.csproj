@@ -86,9 +86,23 @@
     <Content Include="res\background_right_coverup.png" />
     <Content Include="res\background_top.png" />
     <Content Include="res\black_key.png" />
+    <Content Include="res\black_key_highlight.png" />
+    <Content Include="res\notes\note_0.png" />
+    <Content Include="res\notes\note_1.png" />
+    <Content Include="res\notes\note_10.png" />
+    <Content Include="res\notes\note_11.png" />
+    <Content Include="res\notes\note_2.png" />
+    <Content Include="res\notes\note_3.png" />
+    <Content Include="res\notes\note_4.png" />
+    <Content Include="res\notes\note_5.png" />
+    <Content Include="res\notes\note_6.png" />
+    <Content Include="res\notes\note_7.png" />
+    <Content Include="res\notes\note_8.png" />
+    <Content Include="res\notes\note_9.png" />
     <Content Include="res\nut.png" />
     <Content Include="res\string.png" />
     <Content Include="res\white_key.png" />
+    <Content Include="res\white_key_highlight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
