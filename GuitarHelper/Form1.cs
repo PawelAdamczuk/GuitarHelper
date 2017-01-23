@@ -1,9 +1,13 @@
-﻿using System;
+﻿using GuitarHelper.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,9 +16,59 @@ namespace GuitarHelper
 {
     public partial class Form1 : Form
     {
+        MainDatabase database;
+
+        InstrumentInterface guitar;
+        InstrumentInterface piano;
+
+        public ChordRecipe chordRecipe;
+        public Note rootNote;
+
         public Form1()
         {
             InitializeComponent();
+
+            this.guitar = new GuitarInterface();
+            this.piano = new KeyboardInterface();
+
+            IFormatter formatter = new BinaryFormatter();
+            try
+            {
+                Stream stream = new FileStream("db.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                this.database = (MainDatabase)formatter.Deserialize(stream);
+                stream.Close();
+            }
+            catch (FileNotFoundException e)
+            {
+                this.database = new MainDatabase();
+                MessageBox.Show(e.Message + "\nCreating fresh database.");
+            }
+
+            //populate the comboboxes
+            this.UpdateBoxes();
+            
+
+
+
+
+
+
+
+        }
+
+        public void UpdateBoxes()
+        {
+            this.comboBox1.Items.Clear();
+            foreach (Fretboard fb in this.database.fretboards)
+            {
+                this.comboBox1.Items.Add(fb.name);
+            }
+
+            this.comboBox2.Items.Clear();
+            foreach (ChordRecipe cr in this.database.chordRecipes)
+            {
+                this.comboBox2.Items.Add(cr.name);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -157,6 +211,19 @@ namespace GuitarHelper
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             this.Refresh();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("db.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, this.database);
+            stream.Close();
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

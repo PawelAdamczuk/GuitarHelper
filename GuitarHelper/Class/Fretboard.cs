@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace GuitarHelper.Class
 {
+    [Serializable]
     class Fretboard
     {
-        List<Note> strings;
+        public List<Note> strings;
+        public string name;
+
+        public Fretboard(List<Note> _strings, string _name)
+        {
+            this.strings = _strings;
+            this.name = _name;
+        }
     }
 }

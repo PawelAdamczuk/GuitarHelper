@@ -11,8 +11,21 @@ namespace GuitarHelper.Class
         Tuple<int, int> currentMouseover;
         MainInterface mainInterface;
         Fretboard chosenBase;
-        Note[][] grid;
+        Note[,] grid;
         int[][] gridState;
+        Form1 parent;
+
+        public GuitarInterface(Fretboard _fretboard, Form1 _parent)
+        {
+            this.parent = _parent;
+            this.chosenBase = _fretboard;
+            this.grid = new Note[this.chosenBase.strings.Count, 12];
+
+            for (int i = 0; i < this.chosenBase.strings.Count; i++)
+            {
+                this.grid[i, 0] = new Note(this.chosenBase.strings[i]);
+            }
+        }
 
         //Metody z klasy
         private void buildGrid()

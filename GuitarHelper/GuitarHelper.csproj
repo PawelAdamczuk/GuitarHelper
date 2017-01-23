@@ -54,6 +54,7 @@
     <Compile Include="Class\GuitarInterface.cs" />
     <Compile Include="Class\InstrumentInterface.cs" />
     <Compile Include="Class\KeyboardInterface.cs" />
+    <Compile Include="Class\MainDatabase.cs" />
     <Compile Include="Class\MainInterface.cs" />
     <Compile Include="Class\Note.cs" />
     <Compile Include="Class\ResterInstance.cs" />
@@ -90,7 +91,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="res\background.png" />
     <Content Include="res\background_bottom.png" />

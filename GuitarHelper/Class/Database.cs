@@ -39,7 +39,7 @@ namespace GuitarHelper.Class
         }
 
 
-        void addChord(ChordRecipe recipe)
+        public void addChord(ChordRecipe recipe)
         {
             //Dodajemy do XML
             this.chordRecipes.Add(recipe);

@@ -10,7 +10,14 @@ namespace GuitarHelper.Class
     {
         public ChordRecipe chordRecipe;
         public Note rootNote;
-        public List<InstrumentInterface> interfaces;
+
+        public InstrumentInterface guitar;
+        public InstrumentInterface piano;
+
+        public MainInterface(ChordRecipe _chordRecipe, Note _rootNote)
+        {
+
+        }
 
         void updateInterfaces()
         {
