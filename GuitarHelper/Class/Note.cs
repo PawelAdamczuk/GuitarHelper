@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toub.Sound.Midi;
 
 namespace GuitarHelper.Class
 {
@@ -12,11 +13,13 @@ namespace GuitarHelper.Class
         public int chromaticPitch;
         public string humanReadable;
         public int absolutePitch;
+        public string noteToPlay;
 
         public Note(Note another)
         {
             this.absolutePitch = another.absolutePitch;
             this.chromaticPitch = another.chromaticPitch;
+            this.noteToPlay = String.Concat(this.humanReadable, this.absolutePitch);
         }
         public Note(int _absolutePitch, int _chromaticPitch)
         {
@@ -24,25 +27,32 @@ namespace GuitarHelper.Class
             this.chromaticPitch = _chromaticPitch;
             string[] hr = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
             this.humanReadable = hr[this.chromaticPitch];
+            this.noteToPlay = String.Concat(this.humanReadable, this.absolutePitch);
         }
 
 
 
-        public static Note operator+ (Note obj, int a)
+        public static Note operator +(Note obj, int a)
         {
-            Note newObj = new Note(obj.absolutePitch, obj.chromaticPitch);
-            newObj.absolutePitch += (a / 12);
-            newObj.chromaticPitch += (a % 12);
-            if (newObj.chromaticPitch >11)
+
+            int _absolutePitch = obj.absolutePitch + (a / 12);
+            int _chromaticPitch = obj.chromaticPitch + (a % 12);
+            if (_chromaticPitch > 11)
             {
-                newObj.absolutePitch++;
-                newObj.chromaticPitch = newObj.chromaticPitch % 12;
+                _absolutePitch++;
+                _chromaticPitch = _chromaticPitch % 12;
             }
-            return newObj;
+
+            return new Note(_absolutePitch, _chromaticPitch);
         }
 
         void play()
         {
+
+            MidiPlayer.OpenMidi();
+            MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
+            MidiPlayer.Play(new NoteOn(0, 1, this.noteToPlay, 100));
+            MidiPlayer.CloseMidi();
 
         }
     }
