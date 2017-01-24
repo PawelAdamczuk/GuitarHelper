@@ -28,7 +28,7 @@ namespace GuitarHelper
         {
             InitializeComponent();
 
-            this.guitar = new GuitarInterface();
+            this.guitar = new GuitarInterface(this);
             this.piano = new KeyboardInterface();
 
             IFormatter formatter = new BinaryFormatter();

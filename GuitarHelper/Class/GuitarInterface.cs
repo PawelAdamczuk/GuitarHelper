@@ -26,7 +26,18 @@ namespace GuitarHelper.Class
                 this.grid[i, 0] = new Note(this.chosenBase.strings[i]);
             }
         }
+        public GuitarInterface(Form1 _parent)
+        {
 
+            this.parent = _parent;
+            this.chosenBase = Database.getInstance().getFretboard("standard");
+            this.grid = new Note[this.chosenBase.strings.Count, 12];
+
+            for (int i = 0; i < this.chosenBase.strings.Count; i++)
+            {
+                this.grid[i, 0] = new Note(this.chosenBase.strings[i]);
+            }
+        }
         //Metody z klasy
         private void buildGrid()
         {

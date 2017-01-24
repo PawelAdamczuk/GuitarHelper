@@ -11,9 +11,11 @@ namespace GuitarHelper.Class
 {
     class Database
     {
-        List<ChordRecipe> chordRecipes;
-        List<Fretboard> fretboards;
-        public Database()
+        private static Database baseInstance = null;
+        private List<ChordRecipe> chordRecipes;
+        private List<Fretboard> fretboards;
+
+        private Database()
         {
             //Wczytujemy do systemu dane z plików XML
             this.chordRecipes = new List<ChordRecipe>();
@@ -38,6 +40,12 @@ namespace GuitarHelper.Class
             catch (Exception ex) { }
         }
 
+        public static Database getInstance()
+        {
+            if( baseInstance == null )
+                baseInstance = new Database();
+            return baseInstance;
+        }
 
         public void addChord(ChordRecipe recipe)
         {
@@ -50,7 +58,7 @@ namespace GuitarHelper.Class
             writer.Serialize(file, recipe);
             file.Close();
         }
-        void addFretboard(Fretboard fretBoard)
+        public void addFretboard(Fretboard fretBoard)
         {
             this.fretboards.Add(fretBoard);
             //Dodajemy do XML
@@ -60,6 +68,15 @@ namespace GuitarHelper.Class
             FileStream file = new FileStream(Environment.CurrentDirectory + "//fretBoardBase.xml", FileMode.OpenOrCreate, FileAccess.Write );
             writer.Serialize(file, fretBoard);
             file.Close();
+        }
+        public Fretboard getFretboard(string name)
+        {
+            foreach (Fretboard _fretboard in fretboards)
+            {
+                if (_fretboard.name.Equals(name))
+                    return _fretboard;
+            }
+            return null;
         }
     }
 }
