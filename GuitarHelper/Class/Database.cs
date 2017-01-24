@@ -34,6 +34,16 @@ namespace GuitarHelper.Class
                 this.addFretboard(new Fretboard(strings, "standard"));
             }
 
+            if (this.getChordRecipe("C-dur") == null)
+            {
+                List<int> intervals = new List<int>();
+                intervals.Add(0);
+                intervals.Add(4);
+                intervals.Add(7);
+                this.addChord(new ChordRecipe(intervals, "C-dur"));
+            }
+
+
         }
 
         public static Database getInstance()
@@ -77,6 +87,15 @@ namespace GuitarHelper.Class
             {
                 if (_fretboard.name.Equals(name))
                     return _fretboard;
+            }
+            return null;
+        }
+        public ChordRecipe getChordRecipe(string name)
+        {
+            foreach (ChordRecipe _chordRecipe in chordRecipes)
+            {
+                if (_chordRecipe.name.Equals(name))
+                    return _chordRecipe;
             }
             return null;
         }
