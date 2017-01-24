@@ -216,12 +216,19 @@ namespace GuitarHelper
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            int startingPosX = 70;
+            int startingPosY = 100;
 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            
         }
     }
 }
