@@ -16,7 +16,7 @@ namespace GuitarHelper
 {
     public partial class Form1 : Form
     {
-        MainDatabase database;
+        //MainDatabase database;
 
         InstrumentInterface guitar;
         InstrumentInterface piano;
@@ -32,40 +32,33 @@ namespace GuitarHelper
             this.piano = new KeyboardInterface();
 
             IFormatter formatter = new BinaryFormatter();
-            try
+            /*try
             {
-                Stream stream = new FileStream("db.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-                this.database = (MainDatabase)formatter.Deserialize(stream);
-                stream.Close();
+                //Stream stream = new FileStream("db.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                //this.database = (MainDatabase)formatter.Deserialize(stream);
+                //stream.Close();
             }
             catch (FileNotFoundException e)
             {
-                this.database = new MainDatabase();
-                MessageBox.Show(e.Message + "\nCreating fresh database.");
-            }
+               // this.database = new MainDatabase();
+                //MessageBox.Show(e.Message + "\nCreating fresh database.");
+            }*/
 
             //populate the comboboxes
             this.UpdateBoxes();
-            
-
-
-
-
-
-
 
         }
 
         public void UpdateBoxes()
         {
             this.comboBox1.Items.Clear();
-            foreach (Fretboard fb in this.database.fretboards)
+            foreach (Fretboard fb in Database.getInstance().fretboards)
             {
                 this.comboBox1.Items.Add(fb.name);
             }
 
             this.comboBox2.Items.Clear();
-            foreach (ChordRecipe cr in this.database.chordRecipes)
+            foreach (ChordRecipe cr in Database.getInstance().chordRecipes)
             {
                 this.comboBox2.Items.Add(cr.name);
             }
@@ -215,13 +208,18 @@ namespace GuitarHelper
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            IFormatter formatter = new BinaryFormatter();
+            /*IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("db.bin", FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, this.database);
-            stream.Close();
+            stream.Close();*/
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

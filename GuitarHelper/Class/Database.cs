@@ -12,8 +12,8 @@ namespace GuitarHelper.Class
     class Database
     {
         private static Database baseInstance = null;
-        private List<ChordRecipe> chordRecipes;
-        private List<Fretboard> fretboards;
+        public List<ChordRecipe> chordRecipes;
+        public List<Fretboard> fretboards;
 
         private Database()
         {
@@ -34,13 +34,13 @@ namespace GuitarHelper.Class
                 this.addFretboard(new Fretboard(strings, "standard"));
             }
 
-            if (this.getChordRecipe("C-dur") == null)
+            if (this.getChordRecipe("dur") == null)
             {
                 List<int> intervals = new List<int>();
                 intervals.Add(0);
                 intervals.Add(4);
                 intervals.Add(7);
-                this.addChord(new ChordRecipe(intervals, "C-dur"));
+                this.addChord(new ChordRecipe(intervals, "dur"));
             }
 
 
