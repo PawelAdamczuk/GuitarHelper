@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toub.Sound.Midi;
-
+using System.Xml.Serialization;
 namespace GuitarHelper.Class
 {
-    [Serializable]
+    [XmlType("Note")]
     public class Note
     {
+        [XmlElement("chromaticPitch")]
         public int chromaticPitch;
+        [XmlElement("humanReadable")]
         public string humanReadable;
+        [XmlElement("absolutePitch")]
         public int absolutePitch;
+        [XmlElement("noteToPlay")]
         public string noteToPlay;
 
         public Note(Note another)
@@ -25,11 +29,14 @@ namespace GuitarHelper.Class
         {
             this.absolutePitch = _absolutePitch;
             this.chromaticPitch = _chromaticPitch;
-            string[] hr = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+            string[] hr = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             this.humanReadable = hr[this.chromaticPitch];
             this.noteToPlay = String.Concat(this.humanReadable, this.absolutePitch);
         }
+        public Note()
+        {
 
+        }
 
 
         public static Note operator +(Note obj, int a)
@@ -46,7 +53,7 @@ namespace GuitarHelper.Class
             return new Note(_absolutePitch, _chromaticPitch);
         }
 
-        void play()
+        public void play()
         {
 
             MidiPlayer.OpenMidi();

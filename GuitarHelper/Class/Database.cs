@@ -20,29 +20,25 @@ namespace GuitarHelper.Class
             //Wczytujemy do systemu dane z plików XML
             this.chordRecipes = new List<ChordRecipe>();
             this.fretboards = new List<Fretboard>();
-            XmlSerializer reader = new XmlSerializer(typeof(ChordRecipe));
-            try
-            {
-                //Wczytujemy rekordy z chordBase.xml
-                FileStream file = new FileStream(Environment.CurrentDirectory + "//chordsBase.xml", FileMode.Open, FileAccess.Read);
-                chordRecipes = reader.Deserialize(file) as List<ChordRecipe>;
-                file.Close();
-                
-            } catch(Exception ex){}
 
-            try 
+            if (this.getFretboard("standard") == null)
             {
-                //Wczytujemy rekordy z fretBoarBase.xml
-                FileStream file = new FileStream(Environment.CurrentDirectory + "//fretBoardBase.xml.xml", FileMode.Open, FileAccess.Read);
-                fretboards = reader.Deserialize(file) as List<Fretboard>;
-                file.Close();
+                List<Note> strings = new List<Note>();
+
+                strings.Add(new Note(3, 4));
+                strings.Add(new Note(3, 9));
+                strings.Add(new Note(4, 2));
+                strings.Add(new Note(4, 7));
+                strings.Add(new Note(5, 4));
+
+                this.addFretboard(new Fretboard(strings, "standard"));
             }
-            catch (Exception ex) { }
+
         }
 
         public static Database getInstance()
         {
-            if( baseInstance == null )
+            if (baseInstance == null)
                 baseInstance = new Database();
             return baseInstance;
         }
@@ -54,7 +50,7 @@ namespace GuitarHelper.Class
             XmlSerializer writer =
                 new XmlSerializer(typeof(ChordRecipe));
 
-            FileStream file = new FileStream(Environment.CurrentDirectory + "//chordsBase.xml", FileMode.OpenOrCreate,FileAccess.Write );
+            FileStream file = new FileStream(Environment.CurrentDirectory + "//chordsBase.xml", FileMode.OpenOrCreate, FileAccess.Write);
             writer.Serialize(file, recipe);
             file.Close();
         }
@@ -62,12 +58,18 @@ namespace GuitarHelper.Class
         {
             this.fretboards.Add(fretBoard);
             //Dodajemy do XML
-            System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(Fretboard));
+            try
+            {
+                XmlSerializer writer = new XmlSerializer(typeof(Fretboard), new Type[] { typeof(Note) });
+                FileStream file = new FileStream(Environment.CurrentDirectory + "//fretBoardBase.xml", FileMode.OpenOrCreate, FileAccess.Write);
+                writer.Serialize(file, fretBoard);
+                file.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString() + "\n");
+            }
 
-            FileStream file = new FileStream(Environment.CurrentDirectory + "//fretBoardBase.xml", FileMode.OpenOrCreate, FileAccess.Write );
-            writer.Serialize(file, fretBoard);
-            file.Close();
         }
         public Fretboard getFretboard(string name)
         {
