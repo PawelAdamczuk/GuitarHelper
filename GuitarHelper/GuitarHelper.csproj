@@ -67,6 +67,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_chordrecipe_input.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_chordrecipe_input.Designer.cs">
+      <DependentUpon>Form_chordrecipe_input.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_fretboard_input.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_chordrecipe_input.resx">
+      <DependentUpon>Form_chordrecipe_input.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_fretboard_input.resx">
       <DependentUpon>Form_fretboard_input.cs</DependentUpon>

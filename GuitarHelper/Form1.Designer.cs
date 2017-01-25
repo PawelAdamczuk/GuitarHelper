@@ -85,6 +85,7 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "C";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 

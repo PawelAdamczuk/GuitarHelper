@@ -717,5 +717,10 @@ namespace GuitarHelper
             this.chordRecipe = this.database.chordRecipes[this.comboBox2.SelectedIndex];
             this.Refresh();
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
