@@ -25,10 +25,13 @@ namespace GuitarHelper.Class
                 MidiPlayer.OpenMidi();
                 MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
 
-                for (int i = 0; i < recipe.intervals.Count(); ++i)
+                MidiPlayer.Play(new NoteOn(3, 1, (rootNote + recipe.intervals.ElementAt(0)).noteToPlay, 100));
+                System.Threading.Thread.Sleep(30);
+
+                for (int i = 1; i < recipe.intervals.Count(); ++i)
                 {
 
-                    MidiPlayer.Play(new NoteOn(3, 1, (rootNote + recipe.intervals.ElementAt(i)).noteToPlay, 100));
+                    MidiPlayer.Play(new NoteOn(3, 1, (rootNote + recipe.intervals.ElementAt(i)).noteToPlay, 60));
                     System.Threading.Thread.Sleep(30);
                 }
                 System.Threading.Thread.Sleep(2790);

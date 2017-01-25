@@ -18,7 +18,7 @@ namespace GuitarHelper.Class
             this.notes = new Note[72];
             for (int i = 0; i < 72; i++)
             {
-                this.notes[i] = new Note(i / 12, i % 12);
+                this.notes[i] = new Note((i / 12) + 2, i % 12);
             }
             this.state = new int[72];
         }
@@ -29,11 +29,14 @@ namespace GuitarHelper.Class
         public void displayChord(Chord chord)
         {
             this.state = new int[72];
-            int rootKey = 12 * chord.rootNote.absolutePitch + chord.rootNote.chromaticPitch;
+            int rootKey = 12 * chord.rootNote.absolutePitch + chord.rootNote.chromaticPitch - 24;
 
             foreach (int i in chord.recipe.intervals)
             {
-                this.state[rootKey + i] = 1;
+                if (rootKey + i < 72)
+                {
+                    this.state[rootKey + i] = 1; 
+                }
             }
         }
 

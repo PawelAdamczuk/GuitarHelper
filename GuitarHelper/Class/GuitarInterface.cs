@@ -28,7 +28,7 @@ namespace GuitarHelper.Class
             this.buildGrid();
         }
         //Metody z klasy
-        private void buildGrid()
+        public void buildGrid()
         {
             this.grid = new Note[this.chosenBase.strings.Count, 12];
 
@@ -46,7 +46,7 @@ namespace GuitarHelper.Class
             this.parent.rootNote = new Note(this.grid[pair.Item1, pair.Item2]);
         }
         //Metody z interface
-        void InstrumentInterface.displayChord(Chord chord)
+        public void displayChord(Chord chord)
         {
             this.gridState = new int[this.chosenBase.strings.Count, 12];
             List<Note> notes = chord.getNotes();

@@ -102,6 +102,7 @@
     <Content Include="res\background_top.png" />
     <Content Include="res\black_key.png" />
     <Content Include="res\black_key_highlight.png" />
+    <Content Include="res\icon.ico" />
     <Content Include="res\notes\note_0.png" />
     <Content Include="res\notes\note_1.png" />
     <Content Include="res\notes\note_10.png" />

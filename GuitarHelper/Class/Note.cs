@@ -26,6 +26,7 @@ namespace GuitarHelper.Class
             this.absolutePitch = another.absolutePitch;
             this.chromaticPitch = another.chromaticPitch;
             this.noteToPlay = String.Concat(this.humanReadable, (this.absolutePitch+0));
+            this.humanReadable = another.humanReadable;
         }
         public Note(int _absolutePitch, int _chromaticPitch)
         {

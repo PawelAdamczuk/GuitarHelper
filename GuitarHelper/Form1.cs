@@ -70,6 +70,9 @@ namespace GuitarHelper
             {
                 this.comboBox2.Items.Add(cr.name);
             }
+
+            this.comboBox1.SelectedIndex = 0;
+            this.comboBox2.SelectedIndex = 0;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -84,6 +87,15 @@ namespace GuitarHelper
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            this.label3.Text = this.rootNote.humanReadable;
+            this.label4.Text = Database.getInstance().chordRecipes[this.comboBox2.SelectedIndex].name;
+
+
+            Chord chord = new Chord(this.chordRecipe, this.rootNote);
+
+            (this.guitar as InstrumentInterface).displayChord(chord);
+            this.piano.displayChord(chord);
+
             int startingPosX = 70;
             int startingPosY = 100;
 
@@ -325,7 +337,7 @@ namespace GuitarHelper
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.Refresh();
+            //this.Refresh();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -338,6 +350,13 @@ namespace GuitarHelper
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.Form1_MouseDoubleClick(sender, e);
+                return;
+            }
+
+
             int startingPosX = 70 + 60;
             int startingPosY = 100;
 
@@ -347,20 +366,168 @@ namespace GuitarHelper
                 int gridX = (e.X-startingPosX) / 60;
                 int gridY = (e.Y-startingPosY) / 30;
 
-                this.rootNote = new Note(this.guitar.grid[gridY, gridX]);
+                this.rootNote = new Note(this.guitar.grid[gridY, gridX]);                
+            }
 
-                Chord chord = new Chord(this.chordRecipe, this.rootNote);
+            //keyboard interface [Wokulsky]
+            int startingPosXKey = 70;
+            int startingPosYKey = 400;
+            int endingPosX = 42 * 20 + startingPosXKey;
+            int endingPosY = startingPosYKey + 100;
+            Note note;
+            if (e.X > startingPosXKey && e.X < endingPosX && e.Y > startingPosYKey && e.Y < endingPosY)
+            {
+                int octavNumber = (int)((e.X - startingPosXKey) / (140));
+                if (e.X > startingPosXKey + (140 * octavNumber) && e.X < (startingPosXKey + (140 * octavNumber) + 20))//C lub Cis
+                {
+                    if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60 && e.X >= startingPosXKey + (140 * octavNumber) + 15 && e.X <= startingPosXKey + (140 * octavNumber) + 35)
+                        note = new Note(octavNumber + 2, 1);
+                    else note = new Note(octavNumber + 2, 0);
+                }
+                else
+                {
+                    if (e.X > startingPosXKey + 20 + (140 * octavNumber) && e.X < (startingPosXKey + (140 * octavNumber) + 40))//D lub Dis lub Cis
+                    {
+                        if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60)//Czarna strefa
+                        {
+                            if (e.X < startingPosXKey + 20 + (140 * octavNumber) + 5)//Cis
+                            {
+                                note = new Note(octavNumber + 2, 1);
+                            }
+                            else
+                            {
+                                if (e.X >= startingPosXKey + 20 + (140 * octavNumber) + 15)//Dis
+                                {
+                                    note = new Note(octavNumber + 2, 3);
+                                }
+                                else//D
+                                {
+                                    note = new Note(octavNumber + 2, 2);
+                                }
+                            }
+                        }
+                        else//D
+                        {
+                            note = new Note(octavNumber + 2, 2);
+                        }
 
-                (this.guitar as InstrumentInterface).displayChord(chord);
+                    }
+                    else
+                    {
+                        if (e.X > startingPosXKey + 40 + (140 * octavNumber) && e.X < (startingPosXKey + (140 * octavNumber) + 60))//Dis lub E
+                        {
+                            if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60 && e.X < startingPosXKey + 45 + (140 * octavNumber)) //Dis
+                            {
+                                note = new Class.Note(octavNumber + 2, 3);
+                            }
+                            else//E
+                            {
+                                note = new Note(octavNumber + 2, 4);
+                            }
+                        }
+                        else
+                        {
+                            if (e.X > startingPosXKey + 60 + (140 * octavNumber) && e.X < (startingPosXKey + (140 * octavNumber) + 80))//F lub Fis
+                            {
+                                if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60 && e.X > startingPosXKey + 75 + (140 * octavNumber)) //Fis
+                                {
+                                    note = new Class.Note(octavNumber + 2, 6);
+                                }
+                                else//F
+                                {
+                                    note = new Note(octavNumber + 2, 5);
+                                }
+                            }
+                            else
+                            {
+                                if (e.X > startingPosXKey + 80 + (140 * octavNumber) && e.X < (startingPosXKey + (140 * octavNumber) + 100))//Fis lub G lub Gis
+                                {
+                                    if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60)//Czarna strefa
+                                    {
+                                        if (e.X < startingPosXKey + 80 + (140 * octavNumber) + 5)//Fis
+                                        {
+                                            note = new Note(octavNumber + 2, 6);
+                                        }
+                                        else
+                                        {
+                                            if (e.X >= startingPosXKey + 80 + (140 * octavNumber) + 15)//Gis
+                                            {
+                                                note = new Note(octavNumber + 2, 8);
+                                            }
+                                            else//G
+                                            {
+                                                note = new Note(octavNumber + 2, 7);
+                                            }
+                                        }
+                                    }
+                                    else//G
+                                    {
+                                        note = new Note(octavNumber + 2, 7);
+                                    }
 
-                this.Refresh();
-        }
+                                }
+                                else
+                                {
+                                    if (e.X > startingPosXKey + 100 + (140 * octavNumber) && e.X < (startingPosXKey + (140 * octavNumber) + 120))//D lub Dis lub Cis
+                                    {
+                                        if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60)//Czarna strefa
+                                        {
+                                            if (e.X < startingPosXKey + 100 + (140 * octavNumber) + 5)//Gis
+                                            {
+                                                note = new Note(octavNumber + 2, 8);
+                                            }
+                                            else
+                                            {
+                                                if (e.X >= startingPosXKey + 100 + (140 * octavNumber) + 15)//Ais
+                                                {
+                                                    note = new Note(octavNumber + 2, 10);
+                                                }
+                                                else//A
+                                                {
+                                                    note = new Note(octavNumber + 2, 9);
+                                                }
+                                            }
+                                        }
+                                        else//A
+                                        {
+                                            note = new Note(octavNumber + 2, 9);
+                                        }
 
+                                    }
+                                    else
+                                    {
+                                        if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60 && e.X < startingPosXKey + 120 + (140 * octavNumber) + 5)
+                                        {
+                                            note = new Note(octavNumber + 2, 10);
+                                        }
+                                        else
+                                        {
+                                            note = new Note(octavNumber + 2, 11);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                this.rootNote = new Note(note);
+                //MessageBox.Show(note.humanReadable + " Oktawa: " + octavNumber + " (" + e.X + "," + e.Y + ")\n");
+            }
+            this.Refresh();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.guitar.chosenBase = Database.getInstance().fretboards[this.comboBox1.SelectedIndex];
+            this.guitar.buildGrid();
+            this.Refresh();
+        }
 
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.chordRecipe = Database.getInstance().chordRecipes[this.comboBox2.SelectedIndex];
+            this.Refresh();
         }
 
         private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -525,7 +692,6 @@ namespace GuitarHelper
 
                 //MessageBox.Show(note.humanReadable+ " Oktawa: " + octavNumber+ " ("+e.X+"," + e.Y + ")\n");
                 note.play();
-                Console.Write("note\n");
             }
         }
     }
