@@ -722,5 +722,11 @@ namespace GuitarHelper
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form_chordrecipe_input chordWindow = new Form_chordrecipe_input();
+            chordWindow.ShowDialog();
+        }
     }
 }

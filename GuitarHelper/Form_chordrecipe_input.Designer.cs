@@ -116,6 +116,8 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkedListBox1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_chordrecipe_input";
             this.Text = "Form_chordrecipe_input";
             this.ResumeLayout(false);
