@@ -74,6 +74,7 @@ namespace GuitarHelper
                     MessageBox.Show("Your chord is add to database");
                     nameChordBox.Clear();
                     checkedListBox1.ClearSelected();
+                    parent.UpdateBoxes();
                     parent.Refresh();
                 }
             }
