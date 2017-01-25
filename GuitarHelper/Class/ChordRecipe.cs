@@ -9,6 +9,7 @@ using System.IO;
 namespace GuitarHelper.Class
 {
     [XmlType("ChordRecipe")]
+    [Serializable]
     public class ChordRecipe
     {
         [XmlArray("intervalsArray")]

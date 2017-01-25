@@ -16,7 +16,7 @@ namespace GuitarHelper
 {
     public partial class Form1 : Form
     {
-        //MainDatabase database;
+        private MainDatabase database;
 
         GuitarInterface guitar;
         KeyboardInterface piano;
@@ -24,12 +24,42 @@ namespace GuitarHelper
         public ChordRecipe chordRecipe;
         public Note rootNote;
 
+        internal MainDatabase Database
+        {
+            get
+            {
+                return database;
+            }
+
+            set
+            {
+                database = value;
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
-            this.guitar = new GuitarInterface(this);
+
+            IFormatter formatter = new BinaryFormatter();
+            try
+            {
+                Stream stream = new FileStream("db.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                this.database = (MainDatabase)formatter.Deserialize(stream);
+                stream.Close();
+            }
+            catch (FileNotFoundException e)
+            {
+                this.database = new MainDatabase();
+                MessageBox.Show(e.Message + "\nCreating fresh database.");
+            }
+
+            this.guitar = new GuitarInterface(this.database.fretboards[0], this);
+            //populate the comboboxes
+            this.UpdateBoxes();
+
             this.rootNote = new Note(this.guitar.grid[5, 5]);
-            this.chordRecipe = Database.getInstance().getChordRecipe("dur");
+            this.chordRecipe = this.database.chordRecipes[0];
 
             Chord chord = new Chord(this.chordRecipe, this.rootNote);
 
@@ -39,40 +69,28 @@ namespace GuitarHelper
             (this.guitar as InstrumentInterface).displayChord(chord);
             this.piano = new KeyboardInterface();
 
-            IFormatter formatter = new BinaryFormatter();
-            /*try
-            {
-                //Stream stream = new FileStream("db.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-                //this.database = (MainDatabase)formatter.Deserialize(stream);
-                //stream.Close();
-            }
-            catch (FileNotFoundException e)
-            {
-               // this.database = new MainDatabase();
-                //MessageBox.Show(e.Message + "\nCreating fresh database.");
-            }*/
-
-            //populate the comboboxes
-            this.UpdateBoxes();
+            
 
         }
 
         public void UpdateBoxes()
         {
             this.comboBox1.Items.Clear();
-            foreach (Fretboard fb in Database.getInstance().fretboards)
+            foreach (Fretboard fb in this.database.fretboards)
             {
                 this.comboBox1.Items.Add(fb.name);
             }
 
             this.comboBox2.Items.Clear();
-            foreach (ChordRecipe cr in Database.getInstance().chordRecipes)
+            foreach (ChordRecipe cr in this.database.chordRecipes)
             {
                 this.comboBox2.Items.Add(cr.name);
             }
 
             this.comboBox1.SelectedIndex = 0;
             this.comboBox2.SelectedIndex = 0;
+
+            this.Refresh();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -87,10 +105,6 @@ namespace GuitarHelper
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            this.label3.Text = this.rootNote.humanReadable;
-            this.label4.Text = Database.getInstance().chordRecipes[this.comboBox2.SelectedIndex].name;
-
-
             Chord chord = new Chord(this.chordRecipe, this.rootNote);
 
             (this.guitar as InstrumentInterface).displayChord(chord);
@@ -342,10 +356,10 @@ namespace GuitarHelper
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            /*IFormatter formatter = new BinaryFormatter();
+            IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("db.bin", FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, this.database);
-            stream.Close();*/
+            stream.Close();
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -515,19 +529,9 @@ namespace GuitarHelper
                 //MessageBox.Show(note.humanReadable + " Oktawa: " + octavNumber + " (" + e.X + "," + e.Y + ")\n");
             }
             this.Refresh();
-        }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.guitar.chosenBase = Database.getInstance().fretboards[this.comboBox1.SelectedIndex];
-            this.guitar.buildGrid();
-            this.Refresh();
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.chordRecipe = Database.getInstance().chordRecipes[this.comboBox2.SelectedIndex];
-            this.Refresh();
+            this.label3.Text = this.rootNote.humanReadable;
+            this.label4.Text = this.chordRecipe.name;
         }
 
         private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -697,8 +701,21 @@ namespace GuitarHelper
 
         private void button_add_fretboard_Click(object sender, EventArgs e)
         {
-            Form_fretboard_input fi = new Form_fretboard_input();
+            Form_fretboard_input fi = new Form_fretboard_input(this);
             fi.Show();
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            this.guitar.chosenBase = this.database.fretboards[this.comboBox1.SelectedIndex];
+            this.guitar.buildGrid();
+            this.Refresh();
+        }
+
+        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            this.chordRecipe = this.database.chordRecipes[this.comboBox2.SelectedIndex];
+            this.Refresh();
         }
     }
 }

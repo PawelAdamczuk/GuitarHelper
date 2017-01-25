@@ -16,9 +16,11 @@ namespace GuitarHelper
         private ComboBox[] octaveBoxes;
         private ComboBox[] noteBoxes;
         public int stringCount = 1;
-        public Form_fretboard_input()
+        Form1 parent;
+        public Form_fretboard_input(Form1 _parent)
         {
             InitializeComponent();
+            this.parent = _parent;
 
             this.octaveBoxes = new ComboBox[] { this.comboBox1, this.comboBox2, this.comboBox3, this.comboBox4, this.comboBox5, this.comboBox6, this.comboBox7, this.comboBox8};
 
@@ -117,7 +119,8 @@ namespace GuitarHelper
             }
 
             Fretboard fb = new Fretboard(strings, this.textBox1.Text);
-
+            this.parent.Database.fretboards.Add(fb);
+            this.parent.UpdateBoxes();
             this.Close();
         }
     }
