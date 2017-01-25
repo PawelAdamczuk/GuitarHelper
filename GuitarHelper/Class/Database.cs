@@ -23,7 +23,7 @@ namespace GuitarHelper.Class
 
             if (this.getFretboard("standard") == null)
             {
-                List<Note> strings = new List<Note>();
+                /*List<Note> strings = new List<Note>();
 
                 strings.Add(new Note(3, 4));
                 strings.Add(new Note(3, 9));
@@ -31,7 +31,27 @@ namespace GuitarHelper.Class
                 strings.Add(new Note(4, 7));
                 strings.Add(new Note(5, 4));
 
-                this.addFretboard(new Fretboard(strings, "standard"));
+                this.addFretboard(new Fretboard(strings, "standard"));*/
+
+                Note e = new Note(5, 4);
+                Note b = new Note(4, 11);
+                Note g = new Note(4, 7);
+                Note d = new Note(4, 2);
+                Note a = new Note(3, 9);
+                Note e_low = new Note(3, 4);
+
+                List<Note> strings = new List<Note>();
+                strings.Add(e);
+                strings.Add(b);
+                strings.Add(g);
+                strings.Add(d);
+                strings.Add(a);
+                strings.Add(e_low);
+
+                Fretboard fb = new Fretboard(strings, "standard");
+
+                this.fretboards.Add(fb);
+
             }
 
             if (this.getChordRecipe("dur") == null)

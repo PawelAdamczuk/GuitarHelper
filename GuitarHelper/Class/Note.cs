@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Toub.Sound.Midi;
 using System.Xml.Serialization;
+using System.Threading;
+
 namespace GuitarHelper.Class
 {
     [XmlType("Note")]
@@ -23,7 +25,7 @@ namespace GuitarHelper.Class
         {
             this.absolutePitch = another.absolutePitch;
             this.chromaticPitch = another.chromaticPitch;
-            this.noteToPlay = String.Concat(this.humanReadable, this.absolutePitch);
+            this.noteToPlay = String.Concat(this.humanReadable, (this.absolutePitch+0));
         }
         public Note(int _absolutePitch, int _chromaticPitch)
         {
@@ -31,11 +33,16 @@ namespace GuitarHelper.Class
             this.chromaticPitch = _chromaticPitch;
             string[] hr = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             this.humanReadable = hr[this.chromaticPitch];
-            this.noteToPlay = String.Concat(this.humanReadable, this.absolutePitch);
+            this.noteToPlay = String.Concat(this.humanReadable, (this.absolutePitch+0));
         }
         public Note()
         {
 
+        }
+
+        public bool equals(Note other)
+        {
+            return (this.absolutePitch == other.absolutePitch && this.chromaticPitch == other.chromaticPitch);
         }
 
 
@@ -55,12 +62,15 @@ namespace GuitarHelper.Class
 
         public void play()
         {
-
-            MidiPlayer.OpenMidi();
-            MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
-            MidiPlayer.Play(new NoteOn(0, 1, this.noteToPlay, 100));
-            MidiPlayer.CloseMidi();
-
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                MidiPlayer.OpenMidi();
+                MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
+                MidiPlayer.Play(new NoteOn(0, 1, this.noteToPlay, 100));
+                System.Threading.Thread.Sleep(2790);
+                MidiPlayer.CloseMidi();
+            }).Start();
         }
     }
 }

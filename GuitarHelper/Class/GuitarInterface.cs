@@ -10,47 +10,60 @@ namespace GuitarHelper.Class
     {
         Tuple<int, int> currentMouseover;
         MainInterface mainInterface;
-        Fretboard chosenBase;
-        Note[,] grid;
-        int[][] gridState;
+        public Fretboard chosenBase;
+        public Note[,] grid;
+        public int[,] gridState;
         Form1 parent;
 
         public GuitarInterface(Fretboard _fretboard, Form1 _parent)
         {
             this.parent = _parent;
             this.chosenBase = _fretboard;
-            this.grid = new Note[this.chosenBase.strings.Count, 12];
-
-            for (int i = 0; i < this.chosenBase.strings.Count; i++)
-            {
-                this.grid[i, 0] = new Note(this.chosenBase.strings[i]);
-            }
+            this.buildGrid();
         }
         public GuitarInterface(Form1 _parent)
         {
-
             this.parent = _parent;
             this.chosenBase = Database.getInstance().getFretboard("standard");
-            this.grid = new Note[this.chosenBase.strings.Count, 12];
-
-            for (int i = 0; i < this.chosenBase.strings.Count; i++)
-            {
-                this.grid[i, 0] = new Note(this.chosenBase.strings[i]);
-            }
+            this.buildGrid();
         }
         //Metody z klasy
         private void buildGrid()
         {
+            this.grid = new Note[this.chosenBase.strings.Count, 12];
 
+            for (int i = 0; i < this.chosenBase.strings.Count; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    this.grid[i, j] = new Note(this.chosenBase.strings[i] + (1+ j));
+                }
+            }
+            this.gridState = new int[this.chosenBase.strings.Count, 12];
         }
         public void changeMouseover(Tuple<int,int> pair)
         {
-
+            this.parent.rootNote = new Note(this.grid[pair.Item1, pair.Item2]);
         }
         //Metody z interface
         void InstrumentInterface.displayChord(Chord chord)
         {
-            throw new NotImplementedException();
+            this.gridState = new int[this.chosenBase.strings.Count, 12];
+            List<Note> notes = chord.getNotes();
+
+            for (int i = 0; i < this.grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.grid.GetLength(1); j++)
+                {
+                    foreach (Note n in notes)
+                    {
+                        if (this.grid[i, j].chromaticPitch == n.chromaticPitch)
+                        {
+                            this.gridState[i,j] = 1;
+                        }
+                    }
+                }
+            }
         }
 
         Note InstrumentInterface.getCurrentSelection()
