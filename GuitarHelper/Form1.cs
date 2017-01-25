@@ -694,5 +694,11 @@ namespace GuitarHelper
                 note.play();
             }
         }
+
+        private void button_add_fretboard_Click(object sender, EventArgs e)
+        {
+            Form_fretboard_input fi = new Form_fretboard_input();
+            fi.Show();
+        }
     }
 }

@@ -35,6 +35,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.button_add_fretboard = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -96,12 +97,23 @@
             this.label4.Text = "major";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // button_add_fretboard
+            // 
+            this.button_add_fretboard.Location = new System.Drawing.Point(13, 706);
+            this.button_add_fretboard.Name = "button_add_fretboard";
+            this.button_add_fretboard.Size = new System.Drawing.Size(121, 23);
+            this.button_add_fretboard.TabIndex = 6;
+            this.button_add_fretboard.Text = "Add fretboard";
+            this.button_add_fretboard.UseVisualStyleBackColor = true;
+            this.button_add_fretboard.Click += new System.EventHandler(this.button_add_fretboard_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(984, 741);
+            this.Controls.Add(this.button_add_fretboard);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox2);
@@ -132,6 +144,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button_add_fretboard;
     }
 }
 
