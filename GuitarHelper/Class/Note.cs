@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Toub.Sound.Midi;
 using System.Xml.Serialization;
+using System.Threading;
+
 namespace GuitarHelper.Class
 {
     [XmlType("Note")]
@@ -56,11 +58,17 @@ namespace GuitarHelper.Class
         public void play()
         {
 
+            var th = new Thread(playMidi);
+            th.Start();
+
+        }
+        private void playMidi()
+        {
             MidiPlayer.OpenMidi();
             MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
             MidiPlayer.Play(new NoteOn(0, 1, this.noteToPlay, 100));
+            System.Threading.Thread.Sleep(2790);
             MidiPlayer.CloseMidi();
-
         }
     }
 }
