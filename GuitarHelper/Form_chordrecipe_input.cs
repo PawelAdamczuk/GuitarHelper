@@ -13,9 +13,10 @@ namespace GuitarHelper
     public partial class Form_chordrecipe_input : Form
     {
         Form1 parent;
-        public Form_chordrecipe_input()
+        public Form_chordrecipe_input(Form1 _parent)
         {
             InitializeComponent();
+            this.parent = _parent;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -67,10 +68,13 @@ namespace GuitarHelper
                 }
                 else
                 {
-                    this.parent.Database.chordRecipes.Add(new ChordRecipe(intervals, nameChordBox.Text));
+                    string name = nameChordBox.Text;
+                    ChordRecipe chord = new ChordRecipe(intervals, name);
+                    this.parent.Database.chordRecipes.Add(chord);
                     MessageBox.Show("Your chord is add to database");
                     nameChordBox.Clear();
                     checkedListBox1.ClearSelected();
+                    parent.Refresh();
                 }
             }
         }
