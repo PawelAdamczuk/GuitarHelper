@@ -65,11 +65,11 @@ namespace GuitarHelper.Class
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                MidiPlayer.OpenMidi();
-                MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
-                MidiPlayer.Play(new NoteOn(0, 1, this.noteToPlay, 100));
-                System.Threading.Thread.Sleep(2790);
-                MidiPlayer.CloseMidi();
+            MidiPlayer.OpenMidi();
+            MidiPlayer.Play(new ProgramChange(0, 1, GeneralMidiInstruments.JazzElectricGuitar));
+            MidiPlayer.Play(new NoteOn(0, 1, this.noteToPlay, 100));
+            System.Threading.Thread.Sleep(2790);
+            MidiPlayer.CloseMidi();
             }).Start();
         }
     }

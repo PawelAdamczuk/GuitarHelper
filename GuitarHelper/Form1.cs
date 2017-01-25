@@ -176,7 +176,7 @@ namespace GuitarHelper
 
 
             int startingPosXKeyboard = 70;
-            int startingPosYKeyboard = 400;            
+            int startingPosYKeyboard = 400;
 
             //6 octaves
             int keyNumber = 0;
@@ -185,7 +185,7 @@ namespace GuitarHelper
             {
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //C
+                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //C
                 }
                 else
                 {
@@ -196,7 +196,7 @@ namespace GuitarHelper
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //D 
+                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //D
                 }
                 else
                 {
@@ -207,7 +207,7 @@ namespace GuitarHelper
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //E 
+                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //E
                 }
                 else
                 {
@@ -218,7 +218,7 @@ namespace GuitarHelper
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //F 
+                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //F
                 }
                 else
                 {
@@ -229,7 +229,7 @@ namespace GuitarHelper
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //G 
+                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //G
                 }
                 else
                 {
@@ -244,14 +244,14 @@ namespace GuitarHelper
                 }
                 else
                 {
-                    e.Graphics.DrawImage(whiteKeyHighlight, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //A
+                e.Graphics.DrawImage(whiteKeyHighlight, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //A
                 }
                 verticalIterator += 20;
                 keyNumber += 2;
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //B 
+                e.Graphics.DrawImage(whiteKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 20, 100); //B
                 }
                 else
                 {
@@ -267,7 +267,7 @@ namespace GuitarHelper
             {
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //C# 
+                e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //C#
                 }
                 else
                 {
@@ -282,14 +282,14 @@ namespace GuitarHelper
                 }
                 else
                 {
-                    e.Graphics.DrawImage(blackKeyHighlight, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //D# 
+                e.Graphics.DrawImage(blackKeyHighlight, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //D#
                 }
                 verticalIterator += 40;
                 keyNumber += 3;
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //F# 
+                e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //F#
                 }
                 else
                 {
@@ -300,7 +300,7 @@ namespace GuitarHelper
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //G# 
+                e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //G#
                 }
                 else
                 {
@@ -311,7 +311,7 @@ namespace GuitarHelper
 
                 if (this.piano.state[keyNumber] == 0)
                 {
-                    e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //A# 
+                e.Graphics.DrawImage(blackKey, startingPosXKeyboard + verticalIterator, startingPosYKeyboard, 10, 60); //A#
                 }
                 else
                 {
@@ -354,7 +354,7 @@ namespace GuitarHelper
                 (this.guitar as InstrumentInterface).displayChord(chord);
 
                 this.Refresh();
-            }
+        }
 
         }
 
@@ -504,8 +504,8 @@ namespace GuitarHelper
                                         {
                                             note = new Note(octavNumber + 2, 9);
                                         }
-
-                                    }
+            
+        }
                                     else
                                     {
                                         if (e.Y > startingPosYKey && e.Y < startingPosYKey + 60 && e.X < startingPosXKey + 120 + (140 * octavNumber) + 5)
